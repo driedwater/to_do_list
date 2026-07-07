@@ -1,9 +1,24 @@
+import json
+
 class ToDoList:
-    def __init__(self):
-        self.tasks = []
+    def __init__(self, tasks_file="tasks.json"):
+        self.tasks_file = tasks_file
+        self.tasks = self.load_tasks()
+
+    def load_tasks(self):
+        try:
+            with open(self.tasks_file, "r") as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return []
+
+    def save_tasks(self):
+        with open(self.tasks_file, "w") as f:
+            json.dump(self.tasks, f)
 
     def add_task(self, task):
         self.tasks.append({"task": task, "completed": False})
+        self.save_tasks()
 
     def remove_task(self, task):
         task_to_remove = None
@@ -13,6 +28,7 @@ class ToDoList:
                 break
         if task_to_remove:
             self.tasks.remove(task_to_remove)
+            self.save_tasks()
         else:
             raise ValueError("Task not found")
 
@@ -24,6 +40,7 @@ class ToDoList:
                 break
         if task_to_mark:
             task_to_mark["completed"] = True
+            self.save_tasks()
         else:
             raise ValueError("Task not found")
 
