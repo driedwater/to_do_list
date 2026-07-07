@@ -55,5 +55,14 @@ class TestToDoList(unittest.TestCase):
         new_todo_list = ToDoList(self.test_tasks_file)
         self.assertEqual(new_todo_list.view_tasks(), [{"task": "Task 1", "completed": True}, {"task": "Task 2", "completed": False}])
 
+    def test_edit_task(self):
+        self.todo_list.add_task("Task 1")
+        self.todo_list.edit_task("Task 1", "New Task 1")
+        self.assertEqual(self.todo_list.view_tasks(), [{"task": "New Task 1", "completed": False}])
+
+    def test_edit_task_not_found(self):
+        with self.assertRaises(ValueError):
+            self.todo_list.edit_task("Task 1", "New Task 1")
+
 if __name__ == '__main__':
     unittest.main()

@@ -44,5 +44,17 @@ class ToDoList:
         else:
             raise ValueError("Task not found")
 
+    def edit_task(self, old_task, new_task):
+        task_to_edit = None
+        for t in self.tasks:
+            if t["task"] == old_task:
+                task_to_edit = t
+                break
+        if task_to_edit:
+            task_to_edit["task"] = new_task
+            self.save_tasks()
+        else:
+            raise ValueError("Task not found")
+
     def view_tasks(self):
         return self.tasks
