@@ -11,20 +11,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker-compose build'
+                sh 'docker compose build'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'docker-compose run --rm tests'
+                sh 'docker compose run --rm tests'
             }
         }
     }
 
     post {
         always {
-            sh 'docker-compose down'
+            sh 'docker compose down'
         }
     }
 }
