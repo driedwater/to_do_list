@@ -21,12 +21,6 @@ pipeline {
             }
         }
 
-        stage('Debug') {
-            steps {
-                echo "Branch: ${env.BRANCH_NAME}"
-            }
-        }
-
         stage('Deploy') {
             steps {
                 sh 'docker compose up -d app'
