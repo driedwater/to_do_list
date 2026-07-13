@@ -3,6 +3,9 @@ services:
   app:
     build: .
     command: python3 main.py
+    ports:
+      - "5000:5000"
+
   tests:
     build: .
     command: python3 -m unittest discover tests
