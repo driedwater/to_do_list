@@ -21,6 +21,12 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                echo "Branch: ${env.BRANCH_NAME}"
+            }
+        }
+
         stage('Deploy') {
             when {
                 branch 'master'
