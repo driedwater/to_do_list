@@ -20,11 +20,19 @@ pipeline {
                 sh 'docker compose run --rm tests'
             }
         }
+
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh 'docker compose up -d app'
+            }
     }
 
     post {
         always {
-            sh 'docker compose down'
+            echo 'Pipeline done.'
         }
     }
 }
